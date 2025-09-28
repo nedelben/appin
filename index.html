@@ -5,195 +5,118 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>استبيان: تجربة التنقل والعنونة</title>
   <style>
-    body{margin:0;min-height:100vh;background:#0b1220;color:#fff;display:flex;align-items:center;justify-content:center;padding:20px;font-family:Arial}
-    .frame{width:100%;max-width:700px;background:#111827;padding:22px;border-radius:14px;box-shadow:0 8px 30px rgba(0,0,0,0.7)}
-    h1{text-align:center;margin:0 0 10px}
-    p.lead{text-align:center;color:#aaa;margin:0 0 18px}
-    .btn{display:inline-flex;align-items:center;justify-content:center;padding:10px 16px;border-radius:10px;font-weight:700;cursor:pointer;border:none}
-    .btn.primary{background:#06b6d4;color:#012}
-    .btn.secondary{background:transparent;border:1px solid #333;color:#ccc}
+    :root{--bg:#0b1220;--card:#0f1724;--muted:#9aa4b2;--accent:#06b6d4;--glass:rgba(255,255,255,0.03);font-family:Inter, "Segoe UI", Roboto, Arial, sans-serif}
+    body{margin:0;min-height:100vh;background:linear-gradient(180deg,#061528,#071224);color:#eaf2fb;display:flex;align-items:center;justify-content:center;padding:20px}
+    .frame{width:100%;max-width:760px;background:rgba(255,255,255,0.02);padding:22px;border-radius:18px;box-shadow:0 10px 40px rgba(2,6,23,0.7)}
+    h1{text-align:center;margin:0 0 12px}
+    p.lead{text-align:center;color:var(--muted)}
+    .progress-wrap{height:12px;background:rgba(255,255,255,0.04);border-radius:999px;overflow:hidden;margin:14px 0}
+    .progress{height:100%;width:0;background:linear-gradient(90deg,var(--accent),#60a5fa)}
+    .welcome,.thanks{display:flex;flex-direction:column;gap:12px;align-items:center;text-align:center}
+    .thanks{display:none}
+    .btn{padding:10px 18px;border:none;border-radius:10px;font-weight:700;cursor:pointer}
+    .btn.primary{background:var(--accent);color:#012}
+    .btn.secondary{background:transparent;border:1px solid rgba(255,255,255,0.1);color:var(--muted)}
+    .btn.primary:hover{filter:brightness(1.05)}
     form{display:flex;flex-direction:column;gap:14px}
-    .q{display:none;flex-direction:column;gap:10px}
+    .q{display:none;flex-direction:column;gap:8px}
     .q.active{display:flex}
     label{font-weight:700}
-    input,select,textarea{padding:10px;border-radius:8px;border:none;background:#1f2937;color:#fff;width:100%}
-    textarea{min-height:70px}
-    .nav{display:flex;justify-content:space-between;align-items:center;margin-top:12px}
-    .thanks{display:none;text-align:center}
-    .progress-wrap{height:8px;background:#222;border-radius:999px;margin:12px 0}
-    .progress{height:100%;width:0;background:linear-gradient(90deg,#06b6d4,#60a5fa)}
+    input,select,textarea{padding:10px;border-radius:8px;border:none;background:var(--glass);color:inherit}
+    textarea{min-height:80px}
+    .nav{display:flex;justify-content:space-between;align-items:center;margin-top:10px}
+    .small{color:var(--muted);font-size:13px}
   </style>
 </head>
 <body>
   <div class="frame">
     <h1>استبيان: التنقل ومعرفة الأماكن</h1>
-    <p class="lead">هذا الاستبيان يساعدنا على فهم صعوبات التنقل وإيجاد الأماكن داخل المدن الجزائرية.</p>
+    <p class="lead">نريد أن نعرف تجربتك في التنقل داخل مدينتك وصعوبة إيجاد الشوارع والأماكن.</p>
 
-    <div class="progress-wrap"><div id="progress" class="progress"></div></div>
+    <div class="progress-wrap"><div class="progress" id="progress"></div></div>
 
-    <!-- شاشة الترحيب -->
-    <div id="welcome">
-      <p>مرحباً بك 👋 شكراً لمساهمتك. الاستبيان قصير ولن يأخذ أكثر من 3 دقائق.</p>
-      <div style="display:flex;gap:10px;justify-content:center;margin-top:15px">
-        <button id="startBtn" class="btn primary">ابدأ الاستبيان</button>
-      </div>
+    <!-- Welcome -->
+    <div id="welcome" class="welcome">
+      <p>مرحبًا! شكراً لوقتك. هذا الاستبيان جزء من بحث لفهم تحديات التنقل والعثور على الأماكن داخل المدن.</p>
+      <button id="startBtn" class="btn primary">ابدأ الاستبيان</button>
     </div>
 
-    <!-- الأسئلة -->
+    <!-- Survey -->
     <form id="survey" hidden>
-      <div class="q active">
-        <label>1. ما اسم مدينتك الحالية؟</label>
-        <input name="City" required />
-      </div>
-      <div class="q">
-        <label>2. هل تجد صعوبة في استعمال وسائل النقل؟</label>
-        <select name="Transport" required>
-          <option>نعم</option>
-          <option>لا</option>
-          <option>أحياناً</option>
-        </select>
-      </div>
-      <div class="q">
-        <label>3. كيف تعرف الاتجاهات عادة؟</label>
-        <select name="Directions" required>
-          <option>أسأل الناس</option>
-          <option>خرائط جوجل</option>
-          <option>معالم المكان</option>
-          <option>طرق أخرى</option>
-        </select>
-      </div>
-      <div class="q">
-        <label>4. هل تواجه صعوبة في العثور على أماكن جديدة؟</label>
-        <select name="Find Places" required>
-          <option>نعم</option>
-          <option>لا</option>
-          <option>أحياناً</option>
-        </select>
-      </div>
-      <div class="q">
-        <label>5. هل أسماء الشوارع واضحة؟</label>
-        <select name="Street Names" required>
-          <option>واضحة</option>
-          <option>غير واضحة</option>
-          <option>أحياناً</option>
-        </select>
-      </div>
-      <div class="q">
-        <label>6. هل المعالم تساعدك في التنقل؟</label>
-        <select name="Landmarks" required>
-          <option>نعم</option>
-          <option>لا</option>
-          <option>أحياناً</option>
-        </select>
-      </div>
-      <div class="q">
-        <label>7. هل ترى أهمية لعرض الأماكن الداخلية (مستشفيات، جامعات)؟</label>
-        <select name="Indoor" required>
-          <option>مهم جداً</option>
-          <option>مهم</option>
-          <option>غير مهم</option>
-        </select>
-      </div>
-      <div class="q">
-        <label>8. هل التكنولوجيا تساعدك في ذلك؟</label>
-        <select name="Tech Help" required>
-          <option>نعم</option>
-          <option>لا</option>
-          <option>أحياناً</option>
-        </select>
-      </div>
-      <div class="q">
-        <label>9. هل تفضل أن يعمل التطبيق دون إنترنت؟</label>
-        <select name="Offline" required>
-          <option>نعم</option>
-          <option>لا</option>
-        </select>
-      </div>
-      <div class="q">
-        <label>10. ما أهم تحسين تقترحه؟</label>
-        <textarea name="Improvement"></textarea>
-      </div>
-      <div class="q">
-        <label>11. عمرك</label>
-        <input type="number" name="Age" required />
-      </div>
-      <div class="q">
-        <label>12. جنسك</label>
-        <select name="Gender" required>
-          <option>ذكر</option>
-          <option>أنثى</option>
-        </select>
-      </div>
-      <div class="q">
-        <label>13. بريدك الإلكتروني</label>
-        <input type="email" name="Email" required />
-      </div>
-      <div class="q">
-        <label>14. اسمك الكامل</label>
-        <input name="Full Name" required />
-      </div>
+      <div class="q active"><label>1. ما اسم مدينتك الحالية؟</label><input name="city" required></div>
+      <div class="q"><label>2. ما وسيلة تنقلك الأساسية؟</label><select name="transport" required><option value="">اختر</option><option>سيارة</option><option>حافلة</option><option>دراجة</option><option>مشياً</option></select></div>
+      <div class="q"><label>3. كيف تحصل غالباً على الاتجاهات؟</label><select name="directions" required><option value="">اختر</option><option>Google Maps</option><option>سؤال الناس</option><option>خبرتي</option></select></div>
+      <div class="q"><label>4. هل تجد صعوبة في إيجاد أماكن جديدة؟</label><select name="find_places" required><option value="">اختر</option><option>دائماً</option><option>أحياناً</option><option>نادراً</option><option>أبداً</option></select></div>
+      <div class="q"><label>5. هل أسماء الشوارع واضحة؟</label><select name="street_names" required><option value="">اختر</option><option>نعم</option><option>أحياناً</option><option>نادراً</option><option>لا</option></select></div>
+      <div class="q"><label>6. ما أبرز معلم يصعب الوصول إليه؟</label><input name="landmarks"></div>
+      <div class="q"><label>7. هل واجهت صعوبة داخل المباني (جامعة، مستشفى)؟</label><select name="indoor" required><option value="">اختر</option><option>نعم</option><option>أحياناً</option><option>لا</option></select></div>
+      <div class="q"><label>8. هل ترغب في تطبيق خرائط جزائري؟</label><select name="tech_help" required><option value="">اختر</option><option>نعم</option><option>ربما</option><option>لا</option></select></div>
+      <div class="q"><label>9. هل تفضل أن يعمل التطبيق دون إنترنت؟</label><select name="offline" required><option value="">اختر</option><option>نعم</option><option>لا</option></select></div>
+      <div class="q"><label>10. ما الميزة التي تقترحها؟</label><textarea name="improvement"></textarea></div>
+      <div class="q"><label>11. عمرك</label><input type="number" name="age" required></div>
+      <div class="q"><label>12. جنسك</label><select name="gender" required><option value="">اختر</option><option>ذكر</option><option>أنثى</option></select></div>
+      <div class="q"><label>13. بريدك الإلكتروني</label><input type="email" name="email" required></div>
+      <div class="q"><label>14. اسمك الكامل</label><input name="full_name" required></div>
 
       <div class="nav">
         <button type="button" id="prev" class="btn secondary">السابق</button>
-        <button type="button" id="next" class="btn primary">التالي</button>
+        <div><span class="small">سؤال <span id="stepNum">1</span> / 14</span> <button type="button" id="next" class="btn primary">التالي</button></div>
       </div>
     </form>
 
-    <!-- شاشة النهاية -->
+    <!-- Thanks -->
     <div id="thanks" class="thanks">
-      <h2>✅ شكراً لمشاركتك!</h2>
-      <p>سوف نرسل لك تفاصيل حول المنتج في حال توفره.</p>
-      <h3 style="margin-top:20px">منظمو الاستبيان</h3>
-      <ul style="list-style:none;padding:0;line-height:1.7">
+      <h2>شكراً لمشاركتك!</h2>
+      <p class="lead">🙏 سنرسل لك لاحقاً تفاصيل حول منتجنا في حالة توفره.</p>
+      <ul style="list-style:none;padding:0">
         <li>benyak nadal – Université de Médéa</li>
         <li>Asmahan Belkacemi – University of Algiers 1</li>
         <li>Khaled Bouchenafa – University of Algiers 1</li>
         <li>Amar Kadri – University of Oran 2</li>
         <li>Ahlam Minasri – University of Oran 2</li>
       </ul>
+      <button id="restartBtn" class="btn secondary">أعد الاستبيان</button>
     </div>
   </div>
 
-  <script>
-    const startBtn=document.getElementById('startBtn');
-    const welcome=document.getElementById('welcome');
-    const form=document.getElementById('survey');
-    const qs=[...document.querySelectorAll('.q')];
-    const prev=document.getElementById('prev');
-    const next=document.getElementById('next');
-    const thanks=document.getElementById('thanks');
-    const progress=document.getElementById('progress');
-    let idx=0;
+<script>
+  const startBtn=document.getElementById('startBtn');
+  const welcome=document.getElementById('welcome');
+  const form=document.getElementById('survey');
+  const qs=Array.from(document.querySelectorAll('.q'));
+  const prev=document.getElementById('prev');
+  const next=document.getElementById('next');
+  const stepNum=document.getElementById('stepNum');
+  const progress=document.getElementById('progress');
+  const thanks=document.getElementById('thanks');
+  const restartBtn=document.getElementById('restartBtn');
 
-    startBtn.onclick=()=>{welcome.style.display='none';form.hidden=false;update()}
+  let idx=0;
 
-    prev.onclick=()=>{if(idx>0){idx--;update()}}
-    next.onclick=()=>{if(!validate())return;if(idx<qs.length-1){idx++;update()}else submitForm()}
+  startBtn.onclick=()=>{welcome.style.display="none";form.hidden=false;update()};
+  prev.onclick=()=>{if(idx>0){idx--;update()}};
+  next.onclick=async()=>{
+    const inputs=qs[idx].querySelectorAll('input,select,textarea');
+    for(const el of inputs){if(el.required&&!el.value){el.reportValidity();return;}}
+    if(idx<qs.length-1){idx++;update()}else{await submitResponses()}
+  };
 
-    function update(){
-      qs.forEach((q,i)=>q.classList.toggle('active',i===idx));
-      prev.style.display=idx===0?'none':'inline-flex';
-      next.textContent=idx===qs.length-1?'إرسال الإجابات':'التالي';
-      progress.style.width=((idx+1)/qs.length*100)+'%';
-    }
-    function validate(){
-      const inputs=qs[idx].querySelectorAll('input,select,textarea');
-      for(const el of inputs){if(el.hasAttribute('required')&&!el.value){el.reportValidity();return false}}
-      return true;
-    }
-    async function submitForm(){
-      const data={};
-      new FormData(form).forEach((v,k)=>data[k]=v);
-      data.Timestamp=new Date().toISOString();
-      try{
-        await fetch("https://script.google.com/macros/s/AKfycbzN0J5jOa8_q4fCV5e5-TkEa95MmFdQVqPkC5F0j9XuX9XnTljDyWC4PV7p6JV-h8BS/exec",{
-          method:"POST",body:JSON.stringify(data)
-        });
-      }catch(e){console.error(e)}
-      form.hidden=true;thanks.style.display='block';
-    }
-  </script>
+  function update(){
+    qs.forEach((q,i)=>q.classList.toggle('active',i===idx));
+    prev.disabled=idx===0;
+    next.textContent=(idx===qs.length-1)?"إرسال الإجابات":"التالي";
+    stepNum.textContent=idx+1;
+    progress.style.width=Math.round(((idx+1)/qs.length)*100)+"%";
+  }
+
+  async function submitResponses(){
+    const formData=Object.fromEntries(new FormData(form).entries());
+    const url="https://script.google.com/macros/s/AKfycbzN0J5jOa8_q4fCV5e5-TkEa95MmFdQVqPkC5F0j9XuX9XnTljDyWC4PV7p6JV-h8BS/exec";
+    await fetch(url,{method:"POST",body:JSON.stringify(formData),headers:{"Content-Type":"application/json"}});
+    form.hidden=true;thanks.style.display="flex";
+  }
+
+  restartBtn.onclick=()=>{thanks.style.display="none";form.hidden=false;idx=0;update()}
+</script>
 </body>
 </html>
-
-
