@@ -28,7 +28,7 @@
     .q{display:none;gap:10px;flex-direction:column}
     .q.active{display:flex}
     label{font-weight:700}
-    input[type=text], input[type=email], select, textarea, input[type=number]{padding:10px;border-radius:8px;border:none;background:var(--glass);color:inherit;width:100%}
+    input[type=text], input[type=email], input[type=number], select, textarea{padding:10px;border-radius:8px;border:none;background:var(--glass);color:inherit;width:100%}
     .choices{display:flex;flex-wrap:wrap;gap:10px}
     .choices label{background:rgba(255,255,255,0.03);padding:8px 10px;border-radius:8px;cursor:pointer}
     textarea{min-height:80px}
@@ -46,7 +46,7 @@
 
     <div class="progress-wrap" aria-hidden="true"><div class="progress" id="progress"></div></div>
 
-    <!-- Welcome screen -->
+    <!-- شاشة الترحيب -->
     <div id="welcome" class="welcome">
       <p>مرحبًا! شكراً لوقتك. هذا الاستبيان جزء من بحث لفهم تحديات التنقل والعثور على الأماكن داخل المدن. إجاباتك ستساعدنا على تحديد المشاكل الحقيقية واقتراح حلول أفضل.</p>
       <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center">
@@ -57,14 +57,121 @@
       <p class="small">ستُطلب بعض المعلومات الأساسية (السن، البريد، الاسم) أثناء الاستبيان لتصنيف الإجابات والتواصل في حال رغبت بذلك.</p>
     </div>
 
-    <!-- Main form -->
+    <!-- نموذج الأسئلة -->
     <form id="survey" hidden>
-      <!-- الأسئلة ... (نفس أسئلتك السابقة) -->
-      <div class="q active" data-q="1">
+      <div class="q" data-q="1">
         <label>1. ما اسم مدينتك الحالية؟</label>
         <input type="text" name="city" placeholder="مثال: الجزائر، وهران..." required />
       </div>
-      <!-- ... باقي الأسئلة لغاية السؤال 16 ... -->
+      <div class="q" data-q="2">
+        <label>2. هل تجد صعوبة في الوصول إلى أماكن أو شوارع جديدة في مدينتك؟</label>
+        <select name="difficulty" required>
+          <option value="">اختر</option>
+          <option>نعم، غالباً</option>
+          <option>أحياناً</option>
+          <option>نادرًا</option>
+          <option>أبداً</option>
+        </select>
+      </div>
+      <div class="q" data-q="3">
+        <label>3. ما أكثر وسيلة تعتمد عليها لإيجاد طريقك؟</label>
+        <select name="method" required>
+          <option value="">اختر</option>
+          <option>Google Maps</option>
+          <option>سؤال الناس</option>
+          <option>خبرتي الشخصية</option>
+          <option>طرق أخرى</option>
+        </select>
+      </div>
+      <div class="q" data-q="4">
+        <label>4. هل أسماء الشوارع في مدينتك واضحة وسهلة القراءة؟</label>
+        <select name="street_names" required>
+          <option value="">اختر</option>
+          <option>نعم، دائمًا</option>
+          <option>أحياناً</option>
+          <option>نادراً</option>
+          <option>لا، أبداً</option>
+        </select>
+      </div>
+      <div class="q" data-q="5">
+        <label>5. ما أكثر مكان تجد صعوبة في الوصول إليه عادةً؟</label>
+        <input type="text" name="hard_place" placeholder="مثال: مستشفى، إدارة، حي جديد..." />
+      </div>
+      <div class="q" data-q="6">
+        <label>6. هل ترى أن الخرائط الرقمية الحالية دقيقة بما يكفي لمدينتك؟</label>
+        <select name="accuracy" required>
+          <option value="">اختر</option>
+          <option>نعم</option>
+          <option>إلى حد ما</option>
+          <option>لا</option>
+        </select>
+      </div>
+      <div class="q" data-q="7">
+        <label>7. هل ترغب في تطبيق جزائري خاص بالخرائط والعنونة؟</label>
+        <select name="dz_app" required>
+          <option value="">اختر</option>
+          <option>نعم</option>
+          <option>ربما</option>
+          <option>لا</option>
+        </select>
+      </div>
+      <div class="q" data-q="8">
+        <label>8. هل تفضل أن يعرض التطبيق أماكن داخلية (مثل المستشفيات والجامعات)؟</label>
+        <select name="indoor_maps" required>
+          <option value="">اختر</option>
+          <option>نعم بالتأكيد</option>
+          <option>قد يكون مفيداً</option>
+          <option>لا أحتاج لذلك</option>
+        </select>
+      </div>
+      <div class="q" data-q="9">
+        <label>9. كم مرة في الشهر تحتاج للبحث عن مكان جديد؟</label>
+        <select name="frequency" required>
+          <option value="">اختر</option>
+          <option>أكثر من 10 مرات</option>
+          <option>5-10 مرات</option>
+          <option>1-4 مرات</option>
+          <option>نادرًا</option>
+        </select>
+      </div>
+      <div class="q" data-q="10">
+        <label>10. ما أهم ميزة تود وجودها في تطبيق جزائري للخرائط؟</label>
+        <textarea name="feature" placeholder="اكتب بإيجاز"></textarea>
+      </div>
+      <div class="q" data-q="11">
+        <label>11. هل واجهت صعوبة في العثور على مبنى أو قسم داخل جامعة/مستشفى من قبل؟</label>
+        <select name="indoor_difficulty" required>
+          <option value="">اختر</option>
+          <option>نعم</option>
+          <option>أحياناً</option>
+          <option>لا</option>
+        </select>
+      </div>
+      <div class="q" data-q="12">
+        <label>12. عمرك</label>
+        <input type="number" name="age" min="15" max="80" placeholder="عمرك" required />
+      </div>
+      <div class="q" data-q="13">
+        <label>13. بريدك الإلكتروني</label>
+        <input type="email" name="email" placeholder="example@mail.com" required />
+      </div>
+      <div class="q" data-q="14">
+        <label>14. ما هو جنسك؟</label>
+        <select name="gender" required>
+          <option value="">اختر</option>
+          <option>ذكر</option>
+          <option>أنثى</option>
+        </select>
+      </div>
+      <div class="q" data-q="15">
+        <label>15. هل ترغب في المشاركة بتجربة النسخة الأولية من التطبيق عند توفرها؟</label>
+        <select name="beta" required>
+          <option value="">اختر</option>
+          <option>نعم</option>
+          <option>ربما</option>
+          <option>لا</option>
+        </select>
+      </div>
       <div class="q" data-q="16">
         <label>16. اسمك الكامل</label>
         <input type="text" name="full_name" placeholder="الاسم الكامل" required />
@@ -72,14 +179,11 @@
 
       <div class="nav">
         <button type="button" id="prev" class="btn secondary">السابق</button>
-        <div style="display:flex;gap:8px;align-items:center">
-          <div class="small">سؤال <span id="stepNum">1</span> / 16</div>
-          <button type="button" id="next" class="btn primary">التالي</button>
-        </div>
+        <div style="display:flex;gap:8px;align-items:center"><div class="small">سؤال <span id="stepNum">1</span> / 16</div><button type="button" id="next" class="btn primary">التالي</button></div>
       </div>
     </form>
 
-    <!-- Thanks screen -->
+    <!-- شاشة النهاية -->
     <div id="thanks" class="thanks">
       <h2>شكراً لمشاركتك!</h2>
       <p class="lead">🙏 سنرسل لك لاحقاً تفاصيل حول منتجنا في حالة توفره.</p>
@@ -97,6 +201,7 @@
         <button id="restartBtn" class="btn secondary">أعد الاستبيان</button>
       </div>
     </div>
+
   </div>
 
   <script>
@@ -118,6 +223,7 @@
     startBtn.addEventListener('click', ()=>{
       welcome.style.display = 'none';
       form.hidden = false;
+      idx = 0;
       update();
     });
     infoBtn.addEventListener('click', ()=>alert('الاستبيان يهدف إلى فهم تجربة التنقل ومعرفة المواقع داخل المدن (شوارع، أماكن وخدمات داخل المباني). وقت الإجابة أقل من 3 دقائق.'));
@@ -128,9 +234,11 @@
       const currentQ = qs[idx];
       const inputs = currentQ.querySelectorAll('input,select,textarea');
       for(const el of inputs){
-        if(el.hasAttribute('required') && !el.checkValidity()){
-          el.reportValidity();
-          return;
+        if(el.hasAttribute('required')){
+          if(!el.checkValidity()){
+            el.reportValidity();
+            return;
+          }
         }
       }
       if(idx < qs.length-1){ idx++; update(); }
@@ -146,21 +254,8 @@
     }
 
     async function submitResponses(){
-      const formData = {};
-      new FormData(form).forEach((value, key) => formData[key] = value);
-
-      try {
-        await fetch("https://script.google.com/macros/s/AKfycbwyfAsjkIBHpGBWAGXZW7jYVuMg2QMIAnXBHpcet9kaqHLIuMQ9rqMIUvvU17IUfAdO0w/exec", {
-          method: "POST",
-          body: JSON.stringify(formData),
-          headers: {"Content-Type": "application/json"}
-        });
-        form.hidden = true;
-        thanks.style.display = 'flex';
-      } catch (err) {
-        alert("حدث خطأ أثناء إرسال البيانات، حاول مرة أخرى.");
-        console.error(err);
-      }
+      form.hidden = true;
+      thanks.style.display = 'flex';
     }
 
     restartBtn.addEventListener('click', ()=>{
