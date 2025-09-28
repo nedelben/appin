@@ -5,62 +5,58 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>استبيان: تجربة التنقل والعنونة</title>
   <style>
-    body{margin:0;min-height:100vh;background:#0b1220;color:#fff;display:flex;align-items:center;justify-content:center;font-family:Arial, sans-serif;padding:20px}
-    .frame{width:100%;max-width:760px;background:#111a2c;padding:22px;border-radius:18px;box-shadow:0 10px 40px rgba(0,0,0,.5)}
-    h1{text-align:center}
-    .welcome,.thanks{display:flex;flex-direction:column;gap:14px;align-items:center;justify-content:center;text-align:center}
-    .thanks{display:none}
-    .btn{padding:10px 16px;border-radius:10px;font-weight:bold;cursor:pointer;border:none}
-    .btn.primary{background:#06b6d4;color:#012}
-    .btn.secondary{background:transparent;border:1px solid #555;color:#ccc}
+    :root{--bg:#0b1220;--card:#0f1724;--muted:#9aa4b2;--accent:#06b6d4;--glass:rgba(255,255,255,0.03);font-family:Inter, "Segoe UI", Roboto, Arial, sans-serif}
+    body{margin:0;min-height:100vh;background:linear-gradient(180deg,#061528,#071224);color:#eaf2fb;display:flex;align-items:center;justify-content:center;padding:20px}
+    .frame{width:100%;max-width:760px;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));padding:22px;border-radius:18px;box-shadow:0 10px 40px rgba(2,6,23,0.7)}
+    h1{text-align:center;font-size:22px;margin:0 0 8px}
+    p.lead{text-align:center;color:var(--muted);margin:0 0 18px}
+    .btn{display:inline-flex;align-items:center;gap:8px;border-radius:10px;padding:10px 16px;font-weight:700;cursor:pointer;border:none}
+    .btn.primary{background:var(--accent);color:#012}
+    .btn.secondary{background:transparent;border:1px solid rgba(255,255,255,0.1);color:var(--muted)}
     form{display:flex;flex-direction:column;gap:14px}
     .q{display:none;flex-direction:column;gap:10px}
     .q.active{display:flex}
-    label{font-weight:bold}
-    input,select,textarea{padding:10px;border-radius:8px;border:none;background:#1b2236;color:#fff;width:100%}
-    textarea{min-height:80px}
-    .nav{display:flex;justify-content:space-between;align-items:center}
+    label{font-weight:700}
+    input,select,textarea{padding:10px;border-radius:8px;border:none;background:var(--glass);color:#fff;width:100%}
+    textarea{min-height:70px}
+    .nav{display:flex;justify-content:space-between;align-items:center;margin-top:12px}
+    .thanks{display:none;text-align:center}
+    .progress-wrap{height:10px;background:#222;border-radius:999px;margin:12px 0}
+    .progress{height:100%;width:0;background:linear-gradient(90deg,var(--accent),#60a5fa)}
   </style>
 </head>
 <body>
   <div class="frame">
-    <h1>استبيان: تجربة التنقل والعنونة</h1>
+    <h1>استبيان: التنقل ومعرفة الأماكن</h1>
+    <p class="lead">هذا الاستبيان يساعدنا على فهم صعوبات التنقل وإيجاد الأماكن داخل المدن الجزائرية.</p>
 
-    <!-- شاشة البداية -->
-    <div id="welcome" class="welcome">
-      <p>مرحبًا 👋 هذا الاستبيان قصير (3 دقائق) لفهم تحديات التنقل وإيجاد الأماكن داخل المدن الجزائرية.</p>
-      <button id="startBtn" class="btn primary">ابدأ الاستبيان</button>
-      <button id="authorsBtn" class="btn secondary">منظمو الاستبيان</button>
+    <div class="progress-wrap"><div id="progress" class="progress"></div></div>
+
+    <!-- شاشة الترحيب -->
+    <div id="welcome">
+      <p>مرحباً بك 👋 شكراً لمساهمتك. الاستبيان قصير ولن يأخذ أكثر من 3 دقائق.</p>
+      <div style="display:flex;gap:10px;justify-content:center;margin-top:15px">
+        <button id="startBtn" class="btn primary">ابدأ الاستبيان</button>
+      </div>
     </div>
 
-    <!-- نموذج الأسئلة -->
+    <!-- الأسئلة -->
     <form id="survey" hidden>
-      <div class="q active" data-q="1">
-        <label>1. ما اسم مدينتك الحالية؟</label>
-        <input type="text" name="City" required />
-      </div>
-      <div class="q" data-q="2">
-        <label>2. هل تجد صعوبة في الوصول إلى أماكن أو شوارع جديدة؟</label>
-        <select name="Directions" required>
-          <option value="">اختر</option>
-          <option>غالباً</option>
-          <option>أحياناً</option>
-          <option>نادراً</option>
-          <option>أبداً</option>
-        </select>
-      </div>
-      <div class="q" data-q="3">
-        <label>3. كم عمرك؟</label>
-        <input type="number" name="Age" min="15" max="80" required />
-      </div>
-      <div class="q" data-q="4">
-        <label>4. بريدك الإلكتروني</label>
-        <input type="email" name="Email" required />
-      </div>
-      <div class="q" data-q="5">
-        <label>5. اسمك الكامل</label>
-        <input type="text" name="Full Name" required />
-      </div>
+      <div class="q active"><label>1. ما اسم مدينتك الحالية؟</label><input name="City" required /></div>
+      <div class="q"><label>2. هل تجد صعوبة في استعمال وسائل النقل؟</label><input name="Transport" required /></div>
+      <div class="q"><label>3. كيف تعرف الاتجاهات عادة؟</label><input name="Directions" required /></div>
+      <div class="q"><label>4. هل تواجه صعوبة في العثور على أماكن جديدة؟</label><input name="Find Places" required /></div>
+      <div class="q"><label>5. هل أسماء الشوارع واضحة؟</label><input name="Street Names" required /></div>
+      <div class="q"><label>6. هل المعالم تساعدك في التنقل؟</label><input name="Landmarks" required /></div>
+      <div class="q"><label>7. هل ترى أهمية لعرض الأماكن الداخلية (مستشفيات، جامعات)؟</label><input name="Indoor" required /></div>
+      <div class="q"><label>8. هل التكنولوجيا تساعدك في ذلك؟</label><input name="Tech Help" required /></div>
+      <div class="q"><label>9. هل تفضل أن يعمل التطبيق دون إنترنت؟</label><input name="Offline" required /></div>
+      <div class="q"><label>10. ما أهم تحسين تقترحه؟</label><textarea name="Improvement"></textarea></div>
+      <div class="q"><label>11. عمرك</label><input type="number" name="Age" required /></div>
+      <div class="q"><label>12. جنسك</label><select name="Gender" required><option>ذكر</option><option>أنثى</option></select></div>
+      <div class="q"><label>13. بريدك الإلكتروني</label><input type="email" name="Email" required /></div>
+      <div class="q"><label>14. رقم الهاتف</label><input type="tel" name="Phone" /></div>
+      <div class="q"><label>15. اسمك الكامل</label><input name="Full Name" required /></div>
 
       <div class="nav">
         <button type="button" id="prev" class="btn secondary">السابق</button>
@@ -70,10 +66,10 @@
 
     <!-- شاشة النهاية -->
     <div id="thanks" class="thanks">
-      <h2>🎉 شكراً لمشاركتك!</h2>
-      <p>سنرسل لك لاحقاً تفاصيل حول منتجنا في حالة توفره.</p>
-      <h3>منظمو الاستبيان</h3>
-      <ul style="list-style:none;padding:0;margin:0">
+      <h2>✅ شكراً لمشاركتك!</h2>
+      <p>سوف نرسل لك تفاصيل حول المنتج في حال توفره.</p>
+      <h3 style="margin-top:20px">منظمو الاستبيان</h3>
+      <ul style="list-style:none;padding:0;line-height:1.7">
         <li>benyak nadal – Université de Médéa</li>
         <li>Asmahan Belkacemi – University of Algiers 1</li>
         <li>Khaled Bouchenafa – University of Algiers 1</li>
@@ -85,63 +81,42 @@
 
   <script>
     const startBtn=document.getElementById('startBtn');
-    const authorsBtn=document.getElementById('authorsBtn');
     const welcome=document.getElementById('welcome');
     const form=document.getElementById('survey');
-    const qs=Array.from(document.querySelectorAll('.q'));
+    const qs=[...document.querySelectorAll('.q')];
     const prev=document.getElementById('prev');
     const next=document.getElementById('next');
     const thanks=document.getElementById('thanks');
-
+    const progress=document.getElementById('progress');
     let idx=0;
 
-    startBtn.addEventListener('click',()=>{
-      welcome.style.display='none';
-      form.hidden=false;
-      update();
-    });
-    authorsBtn.addEventListener('click',()=>{
-      alert("منظمو الاستبيان:\n• benyak nadal – Université de Médéa\n• Asmahan Belkacemi – University of Algiers 1\n• Khaled Bouchenafa – University of Algiers 1\n• Amar Kadri – University of Oran 2\n• Ahlam Minasri – University of Oran 2");
-    });
+    startBtn.onclick=()=>{welcome.style.display='none';form.hidden=false;update()}
 
-    prev.addEventListener('click',()=>{ if(idx>0){idx--;update();} });
-    next.addEventListener('click',async()=>{
-      const currentQ=qs[idx];
-      const inputs=currentQ.querySelectorAll('input,select,textarea');
-      for(const el of inputs){
-        if(el.hasAttribute('required') && !el.checkValidity()){
-          el.reportValidity(); return;
-        }
-      }
-      if(idx<qs.length-1){ idx++; update(); }
-      else { await submitResponses(); }
-    });
+    prev.onclick=()=>{if(idx>0){idx--;update()}}
+    next.onclick=()=>{if(!validate())return;if(idx<qs.length-1){idx++;update()}else submitForm()}
 
     function update(){
       qs.forEach((q,i)=>q.classList.toggle('active',i===idx));
-      prev.disabled=idx===0;
-      next.textContent=(idx===qs.length-1)?'إرسال الإجابات':'التالي';
+      prev.style.display=idx===0?'none':'inline-flex';
+      next.textContent=idx===qs.length-1?'إرسال الإجابات':'التالي';
+      progress.style.width=((idx+1)/qs.length*100)+'%';
     }
-
-    async function submitResponses(){
+    function validate(){
+      const inputs=qs[idx].querySelectorAll('input,select,textarea');
+      for(const el of inputs){if(el.hasAttribute('required')&&!el.value){el.reportValidity();return false}}
+      return true;
+    }
+    async function submitForm(){
       const data={};
-      qs.forEach(q=>{
-        const input=q.querySelector('input,select,textarea');
-        if(input) data[input.name]=input.value;
-      });
-
+      new FormData(form).forEach((v,k)=>data[k]=v);
+      data.Timestamp=new Date().toISOString();
       try{
-        await fetch("AKfycbzN0J5jOa8_q4fCV5e5-TkEa95MmFdQVqPkC5F0j9XuX9XnTljDyWC4PV7p6JV-h8BS",{
-          method:"POST",
-          body:JSON.stringify(data),
-          headers:{"Content-Type":"application/json"}
+        await fetch("https://script.google.com/macros/s/AKfycbzN0J5jOa8_q4fCV5e5-TkEa95MmFdQVqPkC5F0j9XuX9XnTljDyWC4PV7p6JV-h8BS/exec",{
+          method:"POST",body:JSON.stringify(data)
         });
-      }catch(e){ console.error("خطأ:",e); }
-
-      form.hidden=true;
-      thanks.style.display='flex';
+      }catch(e){console.error(e)}
+      form.hidden=true;thanks.style.display='block';
     }
   </script>
 </body>
 </html>
-
