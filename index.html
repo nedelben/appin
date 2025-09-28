@@ -5,24 +5,23 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>استبيان: تجربة التنقل والعنونة</title>
   <style>
-    :root{--bg:#0b1220;--card:#0f1724;--muted:#9aa4b2;--accent:#06b6d4;--glass:rgba(255,255,255,0.03);font-family:Inter, "Segoe UI", Roboto, Arial, sans-serif}
-    body{margin:0;min-height:100vh;background:linear-gradient(180deg,#061528,#071224);color:#eaf2fb;display:flex;align-items:center;justify-content:center;padding:20px}
-    .frame{width:100%;max-width:760px;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));padding:22px;border-radius:18px;box-shadow:0 10px 40px rgba(2,6,23,0.7)}
-    h1{text-align:center;font-size:22px;margin:0 0 8px}
-    p.lead{text-align:center;color:var(--muted);margin:0 0 18px}
-    .btn{display:inline-flex;align-items:center;gap:8px;border-radius:10px;padding:10px 16px;font-weight:700;cursor:pointer;border:none}
-    .btn.primary{background:var(--accent);color:#012}
-    .btn.secondary{background:transparent;border:1px solid rgba(255,255,255,0.1);color:var(--muted)}
+    body{margin:0;min-height:100vh;background:#0b1220;color:#fff;display:flex;align-items:center;justify-content:center;padding:20px;font-family:Arial}
+    .frame{width:100%;max-width:700px;background:#111827;padding:22px;border-radius:14px;box-shadow:0 8px 30px rgba(0,0,0,0.7)}
+    h1{text-align:center;margin:0 0 10px}
+    p.lead{text-align:center;color:#aaa;margin:0 0 18px}
+    .btn{display:inline-flex;align-items:center;justify-content:center;padding:10px 16px;border-radius:10px;font-weight:700;cursor:pointer;border:none}
+    .btn.primary{background:#06b6d4;color:#012}
+    .btn.secondary{background:transparent;border:1px solid #333;color:#ccc}
     form{display:flex;flex-direction:column;gap:14px}
     .q{display:none;flex-direction:column;gap:10px}
     .q.active{display:flex}
     label{font-weight:700}
-    input,select,textarea{padding:10px;border-radius:8px;border:none;background:var(--glass);color:#fff;width:100%}
+    input,select,textarea{padding:10px;border-radius:8px;border:none;background:#1f2937;color:#fff;width:100%}
     textarea{min-height:70px}
     .nav{display:flex;justify-content:space-between;align-items:center;margin-top:12px}
     .thanks{display:none;text-align:center}
-    .progress-wrap{height:10px;background:#222;border-radius:999px;margin:12px 0}
-    .progress{height:100%;width:0;background:linear-gradient(90deg,var(--accent),#60a5fa)}
+    .progress-wrap{height:8px;background:#222;border-radius:999px;margin:12px 0}
+    .progress{height:100%;width:0;background:linear-gradient(90deg,#06b6d4,#60a5fa)}
   </style>
 </head>
 <body>
@@ -42,21 +41,97 @@
 
     <!-- الأسئلة -->
     <form id="survey" hidden>
-      <div class="q active"><label>1. ما اسم مدينتك الحالية؟</label><input name="City" required /></div>
-      <div class="q"><label>2. هل تجد صعوبة في استعمال وسائل النقل؟</label><input name="Transport" required /></div>
-      <div class="q"><label>3. كيف تعرف الاتجاهات عادة؟</label><input name="Directions" required /></div>
-      <div class="q"><label>4. هل تواجه صعوبة في العثور على أماكن جديدة؟</label><input name="Find Places" required /></div>
-      <div class="q"><label>5. هل أسماء الشوارع واضحة؟</label><input name="Street Names" required /></div>
-      <div class="q"><label>6. هل المعالم تساعدك في التنقل؟</label><input name="Landmarks" required /></div>
-      <div class="q"><label>7. هل ترى أهمية لعرض الأماكن الداخلية (مستشفيات، جامعات)؟</label><input name="Indoor" required /></div>
-      <div class="q"><label>8. هل التكنولوجيا تساعدك في ذلك؟</label><input name="Tech Help" required /></div>
-      <div class="q"><label>9. هل تفضل أن يعمل التطبيق دون إنترنت؟</label><input name="Offline" required /></div>
-      <div class="q"><label>10. ما أهم تحسين تقترحه؟</label><textarea name="Improvement"></textarea></div>
-      <div class="q"><label>11. عمرك</label><input type="number" name="Age" required /></div>
-      <div class="q"><label>12. جنسك</label><select name="Gender" required><option>ذكر</option><option>أنثى</option></select></div>
-      <div class="q"><label>13. بريدك الإلكتروني</label><input type="email" name="Email" required /></div>
-      <div class="q"><label>14. رقم الهاتف</label><input type="tel" name="Phone" /></div>
-      <div class="q"><label>15. اسمك الكامل</label><input name="Full Name" required /></div>
+      <div class="q active">
+        <label>1. ما اسم مدينتك الحالية؟</label>
+        <input name="City" required />
+      </div>
+      <div class="q">
+        <label>2. هل تجد صعوبة في استعمال وسائل النقل؟</label>
+        <select name="Transport" required>
+          <option>نعم</option>
+          <option>لا</option>
+          <option>أحياناً</option>
+        </select>
+      </div>
+      <div class="q">
+        <label>3. كيف تعرف الاتجاهات عادة؟</label>
+        <select name="Directions" required>
+          <option>أسأل الناس</option>
+          <option>خرائط جوجل</option>
+          <option>معالم المكان</option>
+          <option>طرق أخرى</option>
+        </select>
+      </div>
+      <div class="q">
+        <label>4. هل تواجه صعوبة في العثور على أماكن جديدة؟</label>
+        <select name="Find Places" required>
+          <option>نعم</option>
+          <option>لا</option>
+          <option>أحياناً</option>
+        </select>
+      </div>
+      <div class="q">
+        <label>5. هل أسماء الشوارع واضحة؟</label>
+        <select name="Street Names" required>
+          <option>واضحة</option>
+          <option>غير واضحة</option>
+          <option>أحياناً</option>
+        </select>
+      </div>
+      <div class="q">
+        <label>6. هل المعالم تساعدك في التنقل؟</label>
+        <select name="Landmarks" required>
+          <option>نعم</option>
+          <option>لا</option>
+          <option>أحياناً</option>
+        </select>
+      </div>
+      <div class="q">
+        <label>7. هل ترى أهمية لعرض الأماكن الداخلية (مستشفيات، جامعات)؟</label>
+        <select name="Indoor" required>
+          <option>مهم جداً</option>
+          <option>مهم</option>
+          <option>غير مهم</option>
+        </select>
+      </div>
+      <div class="q">
+        <label>8. هل التكنولوجيا تساعدك في ذلك؟</label>
+        <select name="Tech Help" required>
+          <option>نعم</option>
+          <option>لا</option>
+          <option>أحياناً</option>
+        </select>
+      </div>
+      <div class="q">
+        <label>9. هل تفضل أن يعمل التطبيق دون إنترنت؟</label>
+        <select name="Offline" required>
+          <option>نعم</option>
+          <option>لا</option>
+        </select>
+      </div>
+      <div class="q">
+        <label>10. ما أهم تحسين تقترحه؟</label>
+        <textarea name="Improvement"></textarea>
+      </div>
+      <div class="q">
+        <label>11. عمرك</label>
+        <input type="number" name="Age" required />
+      </div>
+      <div class="q">
+        <label>12. جنسك</label>
+        <select name="Gender" required>
+          <option>ذكر</option>
+          <option>أنثى</option>
+        </select>
+      </div>
+      <div class="q">
+        <label>13. بريدك الإلكتروني</label>
+        <input type="email" name="Email" required />
+      </div>
+      <div class="q">
+        <label>14. اسمك الكامل</label>
+        <input name="Full Name" required />
+      </div>
 
       <div class="nav">
         <button type="button" id="prev" class="btn secondary">السابق</button>
@@ -120,3 +195,5 @@
   </script>
 </body>
 </html>
+
+
